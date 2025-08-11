@@ -30,4 +30,4 @@ jobs:
         run: php artisan key:generate
 
       - name: Run CheckSubscriptionsplus command with logging
-        run: php artisan ruzgarnet:CheckSubscriptionsplus 2>&1 | tee storage/logs/check_subscriptionsplus.log
+        run: php artisan ruzgarnet:CheckSubscriptionsplus 2>&1 | tee storage/logs/deneme.log
