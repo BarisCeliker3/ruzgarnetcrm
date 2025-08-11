@@ -1,0 +1,33 @@
+name: Run CheckSubscriptionsplus Command
+
+on:
+  schedule:
+    # Her gün 11:28 UTC’de çalışacak (GitHub Actions zamanlaması UTC'dir)
+    - cron: '28 11 * * *'
+
+jobs:
+  run-command:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Set permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Generate app key
+        run: php artisan key:generate
+
+      - name: Run CheckSubscriptionsplus command with logging
+        run: php artisan ruzgarnet:CheckSubscriptionsplus 2>&1 | tee storage/logs/check_subscriptionsplus.log
