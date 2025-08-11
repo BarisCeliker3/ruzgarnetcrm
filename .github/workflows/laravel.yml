@@ -3,7 +3,7 @@ name: Run CheckSubscriptionsplus Command
 on:
   schedule:
     # Her gün 11:28 UTC’de çalışacak (GitHub Actions zamanlaması UTC'dir)
-    - cron: '28 11 * * *'
+    - cron: '27 11 * * *'
 
 jobs:
   run-command:
